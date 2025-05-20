@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>闭包</title>
+      <link href="/2025/05/20/%E9%97%AD%E5%8C%85/"/>
+      <url>/2025/05/20/%E9%97%AD%E5%8C%85/</url>
+      
+        <content type="html"><![CDATA[<h1 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>​当内部函数引用了外部函数的变量，即使外部函数执行完毕，其作用域也不会被销毁，而是被内部函数保留。</p><h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><p>​·   允许函数访问并记住其定义时的词法作用域。</p><p>​·   在定义时确定作用域，而非执行时，内部函数可以访问外部函数的变量、参数和函数。</p><h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">outer</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(++count);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">outer</span>();  <span class="comment">// 输出1</span></span><br><span class="line"><span class="title function_">outer</span>();  <span class="comment">// 输出2</span></span><br></pre></td></tr></table></figure><h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>​1.数据封装私有化：隐藏变量，只通过特定变量接口暴露操作；</p><p>​2.保留函数状态：可用于 计数器、缓存、防抖&#x2F;节流函数；</p><p>​3.模块化开发：结合立即执行函数可以隔离作用域，避免全局污染。</p><h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>​有内存泄漏风险：及时解除闭包引用，obj&#x3D;null。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2025/05/18/hello-world/"/>
+      <url>/2025/05/18/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
+    
+    
+    <entry>
+      <title>友情链接</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
+      
+        <content type="html"><![CDATA[<ul class=list>    <li>        <a href="https://qinchuid.github.io/">            <span class=img><img  src="/img/xiaodi.jpg"></span>            <div class="name">琴吹滴</div>            <div class="jieshao">不熟</div>        </a>    </li>    <li>        <a href="https://benksih.github.io">            <span class=img><img  src="/img/benksih.jpg"></span>            <div class="name">Benksih</div>            <div class="jieshao">不认识</div>        </a>    </li>    </ul><style>    .list{        list-style: none;    }    .list li{        height: 210px;        width: 140px;        float: left;    }    .list li a:hover{        transform: scale(1.1);        transition: all .3s;        box-shadow: 0 0 10px rgba(0,0,0,.5);        border-radius: 10px;        text-decoration: none;    }    .list li a{        display: flex;        flex-direction: column;        justify-content: center;        align-items: center;                flex-wrap: wrap;    }    .list img{        width: 100px;        height: 100px;    }    .list li .img{        width: 100px;        height: 100px;        border-radius: 50%;        overflow: hidden;    }    .list li .name{        font-size: 18px;        font-weight: 700;        color: rgb(0, 0, 0);    }    .list li .jieshao{        font-size: 14px;        color: rgba(0, 0, 0,.5);    }</style>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>列表</title>
+      <link href="/list/index.html"/>
+      <url>/list/index.html</url>
+      
+        <content type="html"><![CDATA[<p>666</p>]]></content>
+      
+    </entry>
+    
+    
+  
+</search>
