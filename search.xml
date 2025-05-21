@@ -12,6 +12,12 @@
       
       
       
+        <tags>
+            
+            <tag> JS </tag>
+            
+        </tags>
+      
     </entry>
     
     
@@ -33,6 +39,17 @@
     
     
     <entry>
+      <title>友情链接</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
+      
+        <content type="html"><![CDATA[<ul class=list>    <li>        <a href="https://qinchuid.github.io/">            <span class=img><img  src="/img/xiaodi.jpg"></span>            <div class="name">琴吹滴</div>            <div class="jieshao">不熟</div>        </a>    </li>    <li>        <a href="https://benksih.github.io">            <span class=img><img  src="/img/benksih.jpg"></span>            <div class="name">Benksih</div>            <div class="jieshao">不认识</div>        </a>    </li>    </ul><style>    .list{        list-style: none;    }    .list li{        height: 210px;        width: 140px;        float: left;    }    .list li a:hover{        transform: scale(1.1);        transition: all .3s;        box-shadow: 0 0 10px rgba(0,0,0,.5);        border-radius: 10px;        text-decoration: none;    }    .list li a{        display: flex;        flex-direction: column;        justify-content: center;        align-items: center;                flex-wrap: wrap;    }    .list img{        width: 100px;        height: 100px;    }    .list li .img{        width: 100px;        height: 100px;        border-radius: 50%;        overflow: hidden;    }    .list li .name{        font-size: 18px;        font-weight: 700;        color: rgb(0, 0, 0);    }    .list li .jieshao{        font-size: 14px;        color: rgba(0, 0, 0,.5);    }</style>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>列表</title>
       <link href="/list/index.html"/>
       <url>/list/index.html</url>
@@ -44,11 +61,11 @@
     
     
     <entry>
-      <title>友情链接</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
+      <title>标签</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
-        <content type="html"><![CDATA[<ul class=list>    <li>        <a href="https://qinchuid.github.io/">            <span class=img><img  src="/img/xiaodi.jpg"></span>            <div class="name">琴吹滴</div>            <div class="jieshao">不熟</div>        </a>    </li>    <li>        <a href="https://benksih.github.io">            <span class=img><img  src="/img/benksih.jpg"></span>            <div class="name">Benksih</div>            <div class="jieshao">不认识</div>        </a>    </li>    </ul><style>    .list{        list-style: none;    }    .list li{        height: 210px;        width: 140px;        float: left;    }    .list li a:hover{        transform: scale(1.1);        transition: all .3s;        box-shadow: 0 0 10px rgba(0,0,0,.5);        border-radius: 10px;        text-decoration: none;    }    .list li a{        display: flex;        flex-direction: column;        justify-content: center;        align-items: center;                flex-wrap: wrap;    }    .list img{        width: 100px;        height: 100px;    }    .list li .img{        width: 100px;        height: 100px;        border-radius: 50%;        overflow: hidden;    }    .list li .name{        font-size: 18px;        font-weight: 700;        color: rgb(0, 0, 0);    }    .list li .jieshao{        font-size: 14px;        color: rgba(0, 0, 0,.5);    }</style>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
