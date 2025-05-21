@@ -11,6 +11,12 @@
         <content type="html"><![CDATA[<h1 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>​当内部函数引用了外部函数的变量，即使外部函数执行完毕，其作用域也不会被销毁，而是被内部函数保留。</p><h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><p>​·   允许函数访问并记住其定义时的词法作用域。</p><p>​·   在定义时确定作用域，而非执行时，内部函数可以访问外部函数的变量、参数和函数。</p><h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">outer</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(++count);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">outer</span>();  <span class="comment">// 输出1</span></span><br><span class="line"><span class="title function_">outer</span>();  <span class="comment">// 输出2</span></span><br></pre></td></tr></table></figure><h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>​1.数据封装私有化：隐藏变量，只通过特定变量接口暴露操作；</p><p>​2.保留函数状态：可用于 计数器、缓存、防抖&#x2F;节流函数；</p><p>​3.模块化开发：结合立即执行函数可以隔离作用域，避免全局污染。</p><h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>​有内存泄漏风险：及时解除闭包引用，obj&#x3D;null。</p>]]></content>
       
       
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
       
         <tags>
             
@@ -44,6 +50,17 @@
       <url>/about/index.html</url>
       
         <content type="html"><![CDATA[<ul class=list>    <li>        <a href="https://qinchuid.github.io/">            <span class=img><img  src="/img/xiaodi.jpg"></span>            <div class="name">琴吹滴</div>            <div class="jieshao">不熟</div>        </a>    </li>    <li>        <a href="https://benksih.github.io">            <span class=img><img  src="/img/benksih.jpg"></span>            <div class="name">Benksih</div>            <div class="jieshao">不认识</div>        </a>    </li>    </ul><style>    .list{        list-style: none;    }    .list li{        height: 210px;        width: 140px;        float: left;    }    .list li a:hover{        transform: scale(1.1);        transition: all .3s;        box-shadow: 0 0 10px rgba(0,0,0,.5);        border-radius: 10px;        text-decoration: none;    }    .list li a{        display: flex;        flex-direction: column;        justify-content: center;        align-items: center;                flex-wrap: wrap;    }    .list img{        width: 100px;        height: 100px;    }    .list li .img{        width: 100px;        height: 100px;        border-radius: 50%;        overflow: hidden;    }    .list li .name{        font-size: 18px;        font-weight: 700;        color: rgb(0, 0, 0);    }    .list li .jieshao{        font-size: 14px;        color: rgba(0, 0, 0,.5);    }</style>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>分类</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
