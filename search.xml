@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Node.js-3</title>
+      <link href="/2025/06/07/Node-js-3/"/>
+      <url>/2025/06/07/Node-js-3/</url>
+      
+        <content type="html"><![CDATA[<h2 id="编写接口"><a href="#编写接口" class="headerlink" title="编写接口"></a>编写接口</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app.js</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line"><span class="keyword">const</span> router = <span class="built_in">require</span>(<span class="string">&#x27;./router.js&#x27;</span>);</span><br><span class="line">app.<span class="title function_">use</span>(express.<span class="title function_">json</span>());</span><br><span class="line"><span class="comment">// &#x27;/api&#x27;表示访问该路由时需要加上&#x27;/api&#x27;前缀</span></span><br><span class="line">app.<span class="title function_">use</span>(<span class="string">&#x27;/api&#x27;</span> , router);</span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">8000</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;server started&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// router.js</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> router = express.<span class="title class_">Router</span>();</span><br><span class="line"><span class="comment">// 创建get接口</span></span><br><span class="line">router.<span class="title function_">get</span>(<span class="string">&#x27;/get&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    res.<span class="title function_">send</span>(&#123;</span><br><span class="line">        <span class="attr">status</span>: <span class="number">200</span>,  <span class="comment">// 状态码</span></span><br><span class="line">        <span class="attr">message</span>: <span class="string">&#x27;get success&#x27;</span>,  <span class="comment">// 响应信息</span></span><br><span class="line">        <span class="attr">data</span>: req.<span class="property">query</span>,</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 创建post接口</span></span><br><span class="line">router.<span class="title function_">post</span>(<span class="string">&#x27;/post&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    res.<span class="title function_">send</span>(&#123;</span><br><span class="line">        <span class="attr">status</span>: <span class="number">200</span>,</span><br><span class="line">        <span class="attr">message</span>: <span class="string">&#x27;post success&#x27;</span>,</span><br><span class="line">        <span class="attr">data</span>: req.<span class="property">body</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = router;</span><br></pre></td></tr></table></figure><h3 id="CORS跨域"><a href="#CORS跨域" class="headerlink" title="CORS跨域"></a>CORS跨域</h3><p>​cors是express的一个第三方中间件</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> cors = <span class="built_in">require</span>(<span class="string">&#x27;cors&#x27;</span>);</span><br><span class="line">app.<span class="title function_">use</span>(cors);</span><br></pre></td></tr></table></figure><p>​CORS由一系列<strong>HTTP响应头</strong>组成，这些响应头决定浏览器是否阻止前端JS代码跨域获取资源。</p><p><strong>响应头</strong>：</p><ul><li><code>Access-Control-Allow-Origin: url | *</code>  ，”*”表示允许所有域名的请求，只写域名则表示只允许该域名的请求。</li><li><code>Access-Control-Allow-Headers: xx</code> ，默认情况下CORS仅支持9个请求头，若发送了额外的请求头则需要通过该响应头声明，‘xx’表示要声明的请求头。</li><li><code>Access-Control-Allow-Methods: &#39;POST, GET, DELETE, PUT&#39;</code> ，默认情况下CORS仅支持GET、POST、HEAD请求，若要使用其他方式则需要使用该响应头声明，星号表示所有方法。</li></ul><h4 id="请求方式"><a href="#请求方式" class="headerlink" title="请求方式"></a>请求方式</h4><ul><li><p><strong>简单请求：</strong>：请求方式为GET、POST、HEAD三者之一，并且请求头无自定义头部字段且在默认支持的9个请求头范围内。</p></li><li><p><strong>预检请求：</strong>：请求方式为其他请求，或请求头包含自定义头部请求，或向服务器发送了<code>application/json</code>格式的数据。</p><p>在浏览器与服务器正式通信前，浏览器会先发送OPTION请求进行预检，以获知服务器是否允许该实际请求。服务器成功响应预检请求后才会发送真正的请求并携带真实数据。</p></li></ul><h3 id="JSONP跨域"><a href="#JSONP跨域" class="headerlink" title="JSONP跨域"></a>JSONP跨域</h3><p>​<strong>JSONP：</strong>浏览器通过<script>标签的src属性请求服务器的数据，同时服务器返回函数的调用。</p><ul><li>JSONP不属于Ajax请求，因为没有使用XMLHttpRequest这个对象。</li><li>仅支持GET方法。</li></ul><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 从客户端得到函数的名称</span></span><br><span class="line">    <span class="keyword">const</span> fnname = req.<span class="property">query</span>.<span class="property">fnname</span>;</span><br><span class="line">    <span class="comment">// 定义要发送到客户端的数据对象</span></span><br><span class="line">    <span class="keyword">const</span> data = &#123;</span><br><span class="line">        <span class="attr">name</span>: <span class="string">&#x27;jsonp&#x27;</span>,</span><br><span class="line">        <span class="attr">age</span>: <span class="number">18</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 拼接出一个函数的调用</span></span><br><span class="line">    <span class="keyword">const</span> fn = <span class="string">`<span class="subst">$&#123;fnname&#125;</span>(<span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(data)&#125;</span>)`</span>;</span><br><span class="line">    res.<span class="title function_">send</span>(fn);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> node.js </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Node.js-2</title>
       <link href="/2025/06/03/Node-js-2/"/>
       <url>/2025/06/03/Node-js-2/</url>
@@ -249,11 +274,11 @@
     
     
     <entry>
-      <title>友情链接</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
+      <title>分类</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
-        <content type="html"><![CDATA[<ul class=list>    <li>        <a href="https://qinchuid.github.io/">            <span class=img><img  src="/img/xiaodi.jpg"></span>            <div class="name">琴吹滴</div>            <div class="jieshao">不熟</div>        </a>    </li>    <li>        <a href="https://benksih.github.io">            <span class=img><img  src="/img/benksih.jpg"></span>            <div class="name">Benksih</div>            <div class="jieshao">不认识</div>        </a>    </li>    </ul><style>    .list{        list-style: none;    }    .list li{        height: 210px;        width: 140px;        float: left;    }    .list li a:hover{        transform: scale(1.1);        transition: all .3s;        box-shadow: 0 0 15px #00c4b6;        border-radius: 10px;        text-decoration: none;    }    .list li a{        display: flex;        flex-direction: column;        justify-content: center;        align-items: center;                flex-wrap: wrap;    }    .list img{        width: 100px;        height: 100px;    }    .list li .img{        width: 100px;        height: 100px;        border-radius: 50%;        overflow: hidden;    }    .list li .name{        font-size: 18px;        font-weight: 700;        color: rgb(0, 0, 0);    }    .list li .jieshao{        font-size: 14px;        color: rgba(0, 0, 0,.5);    }</style>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
@@ -271,9 +296,9 @@
     
     
     <entry>
-      <title>分类</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>标签</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -282,11 +307,11 @@
     
     
     <entry>
-      <title>标签</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>友情链接</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<ul class=list>    <li>        <a href="https://qinchuid.github.io/">            <span class=img><img  src="/img/xiaodi.jpg"></span>            <div class="name">琴吹滴</div>            <div class="jieshao">不熟</div>        </a>    </li>    <li>        <a href="https://benksih.github.io">            <span class=img><img  src="/img/benksih.jpg"></span>            <div class="name">Benksih</div>            <div class="jieshao">不认识</div>        </a>    </li>    </ul><style>    .list{        list-style: none;    }    .list li{        height: 210px;        width: 140px;        float: left;    }    .list li a:hover{        transform: scale(1.1);        transition: all .3s;        box-shadow: 0 0 15px #00c4b6;        border-radius: 10px;        text-decoration: none;    }    .list li a{        display: flex;        flex-direction: column;        justify-content: center;        align-items: center;                flex-wrap: wrap;    }    .list img{        width: 100px;        height: 100px;    }    .list li .img{        width: 100px;        height: 100px;        border-radius: 50%;        overflow: hidden;    }    .list li .name{        font-size: 18px;        font-weight: 700;        color: rgb(0, 0, 0);    }    .list li .jieshao{        font-size: 14px;        color: rgba(0, 0, 0,.5);    }</style>]]></content>
       
     </entry>
     
