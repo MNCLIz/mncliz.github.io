@@ -1,0 +1,408 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Node.js-2 | MNCLI</title><meta name="author" content="MNCLI,15833035697@qq.com"><meta name="copyright" content="MNCLI"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="模块化​	模块化指自上而下把系统划分成若干模块的过程。 ​	优点：复用性，可维护性，按需加载。 模块的分类 内置模块，由Node.js官方提供； 自定义模块，用户创建的每一个js文件都是自定义模块； 第三方模块，使用前需先下载。  加载模块​	使用require()方法加载模块，加载模块时会执行模块中的代码 123const fs &#x3D; require(&#x27;fs&#x27;);&#x2F;&#x2F; 加载自定">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Node.js-2">
+<meta property="og:url" content="https://mncliz.github.io/2025/06/03/Node-js-2/index.html">
+<meta property="og:site_name" content="MNCLI">
+<meta property="og:description" content="模块化​	模块化指自上而下把系统划分成若干模块的过程。 ​	优点：复用性，可维护性，按需加载。 模块的分类 内置模块，由Node.js官方提供； 自定义模块，用户创建的每一个js文件都是自定义模块； 第三方模块，使用前需先下载。  加载模块​	使用require()方法加载模块，加载模块时会执行模块中的代码 123const fs &#x3D; require(&#x27;fs&#x27;);&#x2F;&#x2F; 加载自定">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mncliz.github.io/img/postCover/node2cover.png">
+<meta property="article:published_time" content="2025-06-03T07:11:55.000Z">
+<meta property="article:modified_time" content="2025-06-07T04:00:18.368Z">
+<meta property="article:author" content="MNCLI">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mncliz.github.io/img/postCover/node2cover.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://mncliz.github.io/2025/06/03/Node-js-2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Node.js-2',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'blog'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/background.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 友链</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">MNCLI</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title">Node.js-2</h1></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;It has been&quot;,&quot;messageNext&quot;:&quot;days since the last update, the content of the article may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2025-06-07 12:00:18&quot;}" hidden></div><h2 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h2><p>​	<strong>模块化</strong>指自上而下把系统划分成若干模块的过程。</p>
+<p>​	<strong>优点：复用性，可维护性，按需加载。</strong></p>
+<h3 id="模块的分类"><a href="#模块的分类" class="headerlink" title="模块的分类"></a><strong>模块的分类</strong></h3><ul>
+<li><strong>内置模块</strong>，由Node.js官方提供；</li>
+<li><strong>自定义模块</strong>，用户创建的每一个js文件都是自定义模块；</li>
+<li><strong>第三方模块</strong>，使用前需先下载。</li>
+</ul>
+<h3 id="加载模块"><a href="#加载模块" class="headerlink" title="加载模块"></a>加载模块</h3><p>​	使用<code>require()</code>方法加载模块，加载模块时会执行模块中的代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="comment">// 加载自定义模块需要写出文件路径，&quot;.js&quot;可以省略</span></span><br><span class="line"><span class="keyword">const</span> index = <span class="built_in">require</span>(<span class="string">&#x27;./index.js&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="模块作用域"><a href="#模块作用域" class="headerlink" title="模块作用域"></a>模块作用域</h3><p>​	与<strong>函数作用域</strong>类似，在自定义模块中定义的变量、方法等只能在当前模块使用。</p>
+<h3 id="module对象"><a href="#module对象" class="headerlink" title="module对象"></a>module对象</h3><p>​	每个自定义模块中都有一个module对象，里面存储了和当前模块有关的信息，其中<strong>exports</strong>为暴露的对象，通过exports可以使模块内的成员被外界访问到，导入的结果永远以<strong>module.exports指向的对象</strong>为准。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">b</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;b&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    a,</span><br><span class="line">    b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="exports对象"><a href="#exports对象" class="headerlink" title="exports对象"></a>exports对象</h3><p>​	默认情况下，<code>exports</code>与<code>module.exports</code>指向<strong>同一个对象</strong>，最终结果依旧以<strong>module.exports</strong>为准。</p>
+<p>​	但是，<strong>不能直接给exports赋值一个对象</strong>，需要对他的属性赋值。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span>.<span class="property">a</span> = <span class="string">&#x27;a&#x27;</span>; <span class="comment">// 正确</span></span><br><span class="line"><span class="keyword">export</span> = &#123;<span class="attr">a</span>: <span class="string">&#x27;a&#x27;</span>&#125;; <span class="comment">// error</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>​	默认情况下，<code>exports</code>与<code>module.exports</code>指向<strong>同一个对象</strong>，当直接添加属性时，会在原有的内存里添加属性，但如果对<code>module.exports</code>重新赋值一个对象，就会在内存中开辟一个<strong>新的空间</strong>存放赋值的属性与方法，原来对其属性的赋值都无效，也不再与<code>exports</code>指向一个对象。</p>
+<p>​	为防止混乱，不要在同一个模块中同时使用<code>exports</code>与<code>module.exports</code>。</p>
+<h3 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h3><ul>
+<li><p><code>node_modules</code>文件夹用来存放所有已安装的包，require导入第三方包时就从该目录下查找。</p>
+</li>
+<li><p><code>package.json</code>用来记录每个包的下载信息，名字、版本号、下载地址等。</p>
+</li>
+<li><p><code>npm init -y</code>快速创建<code>package.json</code>文件。</p>
+</li>
+<li><p><strong>dependencies节点：</strong>用来记录使用安装了哪些包(<strong>核心依赖包</strong>)。</p>
+</li>
+<li><p>使用<code>npm i</code>命令一次性安装所有dependencies中记录的包。</p>
+</li>
+<li><p><strong>devDependencies节点：</strong>记录只在项目开放阶段使用，上线后不用的包(<strong>开发依赖包</strong>)，安装时在命令中加上<code>-D</code>(等价于<code>--save-dev</code>)即可。</p>
+</li>
+<li><p>在执行<code>npm install</code>命令时，若添加了<code>-g</code>参数，则会安装为全局包。</p>
+</li>
+</ul>
+<h3 id="模块的加载机制"><a href="#模块的加载机制" class="headerlink" title="模块的加载机制"></a>模块的加载机制</h3><ul>
+<li>模块在第一次加载后会被缓存，多次调用require()不会导致模块中的代码执行多次。</li>
+<li><strong>内置模块</strong>加载优先级最高。</li>
+<li>加载自定义模块路径必须为相对路径，否则会被当做内置模块或第三方模块加载。</li>
+</ul>
+<h2 id="Express"><a href="#Express" class="headerlink" title="Express"></a>Express</h2><p>​	<strong>Express</strong>是基于Node.js平台，快速、开放、极简的<strong>Web开发平台</strong>，与http模块类似。</p>
+<p>​	对前端来说，最常见的两种服务器分别是<strong>Web网站服务器</strong>、<strong>API接口服务器</strong>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="comment">// 创建服务器</span></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>,<span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 把内容响应给客户端</span></span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">&quot;666,get成功&quot;</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(req.<span class="property">query</span>);</span><br><span class="line">&#125;)</span><br><span class="line">app.<span class="title function_">post</span>(<span class="string">&#x27;/user&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">&quot;666,post成功&quot;</span>);</span><br><span class="line">&#125;)</span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">8000</span>, <span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;server started&#x27;</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>req.query</strong>可以访问客户端通过<strong>查询字符串</strong>的方式发送的参数，即URL中<strong>“?”</strong>后的参数，格式为<code>?username=abc&amp;age=18</code>。</p>
+</li>
+<li><p><strong>req.params</strong>可以访问URL中通过<strong>“:”</strong>匹配到的动态参数。</p>
+<p><strong>客户端</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">axios.<span class="title function_">get</span>(<span class="string">&#x27;http://localhost:8000/paramsname/paramsage&#x27;</span>,&#123;</span><br><span class="line">    <span class="attr">params</span>: &#123;</span><br><span class="line">        <span class="attr">name</span>:<span class="string">&#x27;queryname&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;).<span class="title function_">then</span>(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">data</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 请求成功，输出 666,get成功</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>服务端</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/:name/:age&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">&quot;666,get成功&quot;</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;paramsName = &quot;</span> + req.<span class="property">params</span>.<span class="property">name</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;paramsAge = &quot;</span> + req.<span class="property">params</span>.<span class="property">age</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;queryName = &quot;</span> + req.<span class="property">query</span>.<span class="property">name</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 响应成功，输出 paramsName = paramsname paramsAge = paramsage queryName = query</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="托管静态资源"><a href="#托管静态资源" class="headerlink" title="托管静态资源"></a>托管静态资源</h4><p>​	**express.static()**可以创建一个静态资源服务器，通过如下代码即可将public文件夹中的图片、css文件、js文件对外开放访问。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">use</span>(express.<span class="title function_">static</span>(<span class="string">&#x27;./public&#x27;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>​	如：<a target="_blank" rel="noopener" href="http://localhost:8000/img/bg.jpg%EF%BC%8Chttp://localhost:8000/css/index.css%EF%BC%8Chttp://localhost:8000/js/index.js">http://localhost:8000/img/bg.jpg，http://localhost:8000/css/index.css，http://localhost:8000/js/index.js</a></p>
+<p>​	Express在指定的目录中查找文件，并对外提供访问路径，因此存放文件的<strong>目录名不会出现在URL中</strong>。</p>
+<p>​	若要托管多个静态资源目录，可以多次调用<code>express.static()</code>函数，访问文件时会按顺序查找。</p>
+<h4 id="挂载路径前缀"><a href="#挂载路径前缀" class="headerlink" title="挂载路径前缀"></a>挂载路径前缀</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">use</span>(<span class="string">&#x27;/public&#x27;</span>, express.<span class="title function_">static</span>(<span class="string">&#x27;./public&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<p>​	在访问静态资源时需带有<code>/public</code>前缀</p>
+<p>​	如：<a target="_blank" rel="noopener" href="http://localhost:8000/public/img/bg.jpg%EF%BC%8Chttp://localhost:8000/public/css/index.css">http://localhost:8000/public/img/bg.jpg，http://localhost:8000/public/css/index.css</a></p>
+<h2 id="Express-路由"><a href="#Express-路由" class="headerlink" title="Express 路由"></a>Express 路由</h2><p>​	<strong>路由</strong>指客户端的请求与服务器处理函数之间的映射关系。</p>
+<h3 id="模块化路由"><a href="#模块化路由" class="headerlink" title="模块化路由"></a>模块化路由</h3><p>​	为方便对路由的管理，推荐将路由抽离为单独的模块。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 路由模块 route1.js</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> router = express.<span class="title class_">Router</span>();</span><br><span class="line">router.<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>,<span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">&#x27;get sucess&#x27;</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 导出路由模块</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = router;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 主文件中</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line"><span class="comment">// 导入路由模块</span></span><br><span class="line"><span class="keyword">const</span> route1 = <span class="built_in">require</span>(<span class="string">&#x27;./route1.js&#x27;</span>)</span><br><span class="line"><span class="comment">// 注册模块</span></span><br><span class="line">app.<span class="title function_">use</span>(route1);</span><br><span class="line">app.<span class="property">listen</span>...</span><br></pre></td></tr></table></figure>
+
+<p>为路由模块<strong>添加前缀</strong>，<code>app.use(&#39;/api&#39;, route1)</code>，添加统一的访问前缀 &#x2F;api。</p>
+<h2 id="Express-中间件"><a href="#Express-中间件" class="headerlink" title="Express 中间件"></a>Express 中间件</h2><p>​	当一个请求到达Express的服务器后，可以连续调用多个<strong>中间件</strong>对这次请求进行<strong>预处理</strong>，最终结果通过路由响应给客户端。</p>
+<p>​	中间件本质上是个函数，格式如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>, <span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">	...</span><br><span class="line">	<span class="title function_">next</span>();</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>​	中间件必须包含<strong>next参数</strong>，且必须在最后调用**<code>next()</code>**。</p>
+<p>​	next函数表示把流转关系<strong>转交</strong>给下一个中间件或路由。</p>
+<p>​	客户端发起的任何请求，到达服务器后都会触发的中间叫做<strong>全局生效</strong>的中间件，格式为<code>app.use((req, res, next) =&gt; &#123;&#125;)</code>。</p>
+<p>​	多个中间件之间共享一份req，res，可以在上游的中间件中添加自定义属性或方法供下游使用。</p>
+<p>​	<strong>局部生效</strong>的中间件，格式为<code>app.get(&#39;/&#39;, fn(), (req, res) =&gt; &#123;...&#125;)</code>、<code>app.get(&#39;/&#39;, fn1(), fn2() (req, res) =&gt; &#123;...&#125;)</code>或<code>app.get(&#39;/&#39;, [fn1(), fn2()], (req, res) =&gt; &#123;...&#125;)</code>，其中fn、fn1、fn2为中间件。</p>
+<h3 id="中间件分类"><a href="#中间件分类" class="headerlink" title="中间件分类"></a>中间件分类</h3><ul>
+<li><p><strong>应用级别</strong>的中间件，绑定到<strong>app实例</strong>上的中间件。</p>
+</li>
+<li><p><strong>路由级别</strong>的中间件，绑定到<strong>express.Router()实例</strong>上的中间件。</p>
+</li>
+<li><p><strong>错误级别</strong>的中间件专门用来捕获项目中的错误，形参为<code>(err, req, res)</code>，错误级别的中间件必须注册在<strong>所有路由之后</strong>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 错误中间件</span></span><br><span class="line">app.<span class="title function_">use</span>(<span class="function">(<span class="params">err, req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(err.<span class="property">message</span>);</span><br><span class="line">    res.<span class="title function_">send</span>(err.<span class="property">message</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Express内置</strong>的中间件，包括<code>express.static</code>、<code>express.json</code>、<code>express.urlencoded</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 解析JSON格式的请求体数据</span></span><br><span class="line">app.<span class="title function_">use</span>(express.<span class="title function_">json</span>());</span><br><span class="line"><span class="comment">// 解析URL/encoded格式的请求体数据</span></span><br><span class="line">app.<span class="title function_">use</span>(express.<span class="title function_">urlencoded</span>(&#123; <span class="attr">extended</span>: <span class="literal">false</span>&#125;));</span><br></pre></td></tr></table></figure>
+
+<p><code>req.body</code>用来接收客户端发送的请求体数据，若不配置解析表单数据的中间件则默认为<code>undefined</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用axios发送urlencoded格式的数据</span></span><br><span class="line"><span class="keyword">const</span> params = <span class="keyword">new</span> <span class="title class_">URLSearchParams</span>(<span class="string">&#x27;name=abc&amp;age=18&#x27;</span>);</span><br><span class="line">params.<span class="title function_">append</span>(<span class="string">&#x27;height&#x27;</span>, <span class="number">180</span>); <span class="comment">// 添加数据</span></span><br><span class="line">axios.<span class="title function_">post</span>(<span class="string">&#x27;http://localhost:8000&#x27;</span>, params).<span class="title function_">then</span>(<span class="function"><span class="params">res</span> =&gt;</span> &#123;&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>第三方</strong>的中间件</p>
+</li>
+</ul>
+<h2 id="自定义中间体"><a href="#自定义中间体" class="headerlink" title="自定义中间体"></a>自定义中间体</h2><p>​	手写一个将JSON数据解析为对象的中间件，类似于express.json。</p>
+<h3 id="首先编写实现代码"><a href="#首先编写实现代码" class="headerlink" title="首先编写实现代码"></a>首先编写实现代码</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line"><span class="comment">// 解析表单数据的中间件</span></span><br><span class="line">app.<span class="title function_">use</span>(<span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> str = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    <span class="comment">// 监听data事件，获取请求体中的数据，只要有数据就会触发</span></span><br><span class="line">    req.<span class="title function_">on</span>(<span class="string">&#x27;data&#x27;</span>,<span class="function">(<span class="params">chunk</span>) =&gt;</span> &#123;</span><br><span class="line">        str += chunk;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="comment">// 监听end事件，当数据传输完成时触发</span></span><br><span class="line">    req.<span class="title function_">on</span>(<span class="string">&#x27;end&#x27;</span>,<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 将JSON字符串解析为对象</span></span><br><span class="line">        req.<span class="property">body</span> = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(str);</span><br><span class="line">        <span class="title function_">next</span>();</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">app.<span class="title function_">post</span>(<span class="string">&#x27;/&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;post success&#x27;</span>)</span><br><span class="line">    res.<span class="title function_">send</span>(req.<span class="property">body</span>);</span><br><span class="line">&#125;)</span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">8000</span>, <span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;server started&#x27;</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li><code>next()</code>一定要写在监听<strong>end事件函数中</strong>，因为监听事件是异步任务，如果将next()写在外面会直接执行next()，直到同步任务执行完毕才会执行监听事件，导致数据未被处理。</li>
+</ul>
+<h3 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// jsonparser.js</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> str = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    req.<span class="title function_">on</span>(<span class="string">&#x27;data&#x27;</span>,<span class="function">(<span class="params">chunk</span>) =&gt;</span> &#123;</span><br><span class="line">        str += chunk;</span><br><span class="line">    &#125;)</span><br><span class="line">    req.<span class="title function_">on</span>(<span class="string">&#x27;end&#x27;</span>,<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(str);</span><br><span class="line">        req.<span class="property">body</span> = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(str);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(req.<span class="property">body</span>);</span><br><span class="line">        <span class="title function_">next</span>();</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">-----------------------------------------------</span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="keyword">const</span> jsonparser = <span class="built_in">require</span>(<span class="string">&#x27;jsonparser&#x27;</span>);</span><br><span class="line">app.<span class="title function_">use</span>(jsonparser);</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://mncliz.github.io">MNCLI</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://mncliz.github.io/2025/06/03/Node-js-2/">https://mncliz.github.io/2025/06/03/Node-js-2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://mncliz.github.io" target="_blank">MNCLI</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a></div><div class="post-share"><div class="social-share" data-image="/img/postCover/node2cover.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li></ul></div></div><nav id="pagination"><div class="pagination"></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/06/01/Node-js-1/" title="Node.js-1"><img class="cover" src="/img/postCover/node1cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-01</div><div class="info-item-2">Node.js-1</div></div><div class="info-2"><div class="info-item-1">Node.js​	Node.js是一个基于Chrome V8引擎的JS运行环境。 注意 浏览器是js的前端执行环境，node.js是js的后端执行环境。 Node.js中无法调用DOM、BOM与AJAX等浏览器内置API。  fs 文件系统模块​	引用fs模块 1const fs = require(&quot;fs&quot;);  fs.readFile()​	使用readFile可以读取指定文件中的内容，格式如下(甚至可以我读我自己)： 123456789fs.readFile(&#x27;test.txt&#x27;, &#x27;utf8&#x27;, (err, data) =&gt; &#123;    if (err) &#123;        // 读取成功err为null        console.error(err);    &#125; else &#123;        // 读取失败时data为undefined        console.log(data);   ...</div></div></div></a><a class="pagination-related" href="/2025/05/30/TypeScript-1/" title="TypeScript-上-类型与配置"><img class="cover" src="/img/postCover/ts1cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-30</div><div class="info-item-2">TypeScript-上-类型与配置</div></div><div class="info-2"><div class="info-item-1">TS是什么 TypeScript是一门以JS为基础构建的语言。 TS是JS的超集，所有JS代码均可在TS中运行。 TS扩展了JS，并添加了类型。 注意：TS不能被JS解析器直接执行，需要先编译成JS代码。  类型声明基本类型用法​	声明变量时对变量类型进行设置，但即使报错依然会编译成js代码： 123let a:number;a = 1;a = &quot;666&quot;; // error，string类型不能赋值给number类型  ​	如果同时进行声明与赋值，TS可自动对变量进行类型检测： 12let a = 2;a = true; // error  ​	也可对函数的参数类型与返回值类型进行声明： 12345function sum(a: number, b: number): number &#123;    return a + b;&#125;sum(1,2);sum(1,&quot;2&quot;); // error  其他类型：12345678910111213141516let a: any = 1; //...</div></div></div></a><a class="pagination-related" href="/2025/05/29/Vite/" title="Vite"><img class="cover" src="/img/postCover/vitecover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-29</div><div class="info-item-2">Vite</div></div><div class="info-2"><div class="info-item-1">Vite​	与webpack相同，Vite也是前端的构建工具。 与webpack的不同 开发时使用ESM的方式来运行项目，而不对代码进行打包。 生产时使用Rollup打包方式 可自动处理常见静态资源，无需像webpack一样配置loader。 配置简单，开箱即用，无需手动配置。  Plugins(插件)​	Vite也可使用plugins，使用方法与webpack类似。 ​	配置文件格式为： 1234567// vite.config.jsimport &#123; defineConfig &#125; from &quot;vite&quot;; // 可有可无，若不添加则写为 export default&#123;&#125;// 使用es6的模块化来暴露文件export default defineConfig(&#123;    // ...    plugins: [],&#125;)  ​	如要使传统浏览器支持可使用@vitejs/plugin-legacy： ​	安装： 1npm add -D...</div></div></div></a><a class="pagination-related" href="/2025/05/31/TypeScript-2/" title="TypeScript-下-面向对象"><img class="cover" src="/img/postCover/ts2cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-31</div><div class="info-item-2">TypeScript-下-面向对象</div></div><div class="info-2"><div class="info-item-1">面向对象​	除了继承JS的所有特性外，TS还在编译阶段引入了类(class)、接口(interface)、泛型(generics)等语法糖，使我们更容易以面向对象的方式编写代码。 class(类)12345678910111213141516171819202122232425262728class Person&#123;    name: string; // 默认为public    private age: number; // 可用private关键字修饰属性，此时不可直接调用实例的该属性,需要用get方法来获取    readonly sex: string; // readonly表示只读属性，不可被修改    static eyeNum: number = 2; // 用static关键字定义类属性(静态属性)或类方法，可直接通过类访问    protected height: number; // protected修饰的属性只能在当前类与子类中使用	// 构造函数，用来初始化实例属性，在创建对象时会调用   ...</div></div></div></a><a class="pagination-related" href="/2025/05/28/webpack/" title="webpack"><img class="cover" src="/img/postCover/webpackcover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-28</div><div class="info-item-2">webpack</div></div><div class="info-2"><div class="info-item-1">​	webpack是一个现代JS应用的一个模块打包器，作用为将所有资源（JS，css，图片等）打包为多个静态文件。 配置文件​	写在webpack.config.js中，格式为: 1234// webpack.config.jsmodule.exports = &#123;  // …&#125;;  Entry(入口)  Output(出口)​	入口文件与出口文件 12345678910111213// webpack.config.jsconst path = require(&#x27;path&#x27;)module.exports = &#123;  // 入口文件  entry: &#x27;./src/index.js&#x27;, // 入口文件路径  // 出口文件  output: &#123;    filename: &#x27;main.js&#x27;, // 出口文件名    path: path.resolve(__dirname, &#x27;dist&#x27;), // 出口文件路径,必须绝对路径    clean: true, //...</div></div></div></a><a class="pagination-related" href="/2025/05/23/%E4%BB%8E%E8%BE%93%E5%85%A5url%E5%88%B0%E5%87%BA%E7%8E%B0%E9%A1%B5%E9%9D%A2/" title="从输入URL到出现页面"><img class="cover" src="/img/postCover/urlcover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-23</div><div class="info-item-2">从输入URL到出现页面</div></div><div class="info-2"><div class="info-item-1">一、解析URL​		·  浏览器解析输入的URL，检查协议、域名、端口和路径。 ​		·  若是非完整URL（如输入baidu.com），浏览器会尝试补全（自动添加https:&#x2F;&#x2F;）。 二、检查缓存​		·  浏览器检查HSTS列表，若域名在列表中，自动将HTTP请求升级成HTTPS。 ​		·  查看本地缓存是否有该资源的缓存副本，若有效则直接使用。 三、DNS解析​		·  每个网址都有对应的ip地址，ip地址有数字组成，不便于记忆，将url地址解析为ip地址的过程就是DNS解析。 ​		·  DNS就是一个记录着url与其对应的ip地址的数据库。 ​		·  将域名转换为ip地址： ​			1.浏览器缓存–&gt;系统缓存（hosts文件）–&gt;路由器缓存–&gt;ISP的DNS服务器。 ​			2.若未命中缓存，DNS服务器通过递归查询（如根域名服务器–&gt;顶级域名服务器–&gt;权威域名服务器）。 四、建立TCP连接​		·  通过三次握手建立连接 ​		· ...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">MNCLI</div><div class="author-info-description">啥也不会</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/MNCLIz"><i class="fab fa-github"></i><span>follow me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><div>Welcome to my Blog!</div> <img src="/img/jiahaoyou.jpg" height=230px></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/06/03/Node-js-2/" title="Node.js-2"><img src="/img/postCover/node2cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Node.js-2"/></a><div class="content"><a class="title" href="/2025/06/03/Node-js-2/" title="Node.js-2">Node.js-2</a><time datetime="2025-06-03T07:11:55.000Z" title="发表于 2025-06-03 15:11:55">2025-06-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/06/01/Node-js-1/" title="Node.js-1"><img src="/img/postCover/node1cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Node.js-1"/></a><div class="content"><a class="title" href="/2025/06/01/Node-js-1/" title="Node.js-1">Node.js-1</a><time datetime="2025-06-01T05:03:44.000Z" title="发表于 2025-06-01 13:03:44">2025-06-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/05/31/TypeScript-2/" title="TypeScript-下-面向对象"><img src="/img/postCover/ts2cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TypeScript-下-面向对象"/></a><div class="content"><a class="title" href="/2025/05/31/TypeScript-2/" title="TypeScript-下-面向对象">TypeScript-下-面向对象</a><time datetime="2025-05-31T03:29:22.000Z" title="发表于 2025-05-31 11:29:22">2025-05-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/05/30/TypeScript-1/" title="TypeScript-上-类型与配置"><img src="/img/postCover/ts1cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TypeScript-上-类型与配置"/></a><div class="content"><a class="title" href="/2025/05/30/TypeScript-1/" title="TypeScript-上-类型与配置">TypeScript-上-类型与配置</a><time datetime="2025-05-30T07:38:59.000Z" title="发表于 2025-05-30 15:38:59">2025-05-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/05/29/Vite/" title="Vite"><img src="/img/postCover/vitecover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Vite"/></a><div class="content"><a class="title" href="/2025/05/29/Vite/" title="Vite">Vite</a><time datetime="2025-05-29T13:06:30.000Z" title="发表于 2025-05-29 21:06:30">2025-05-29</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/JS/"><span class="card-category-list-name">JS</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/TS/"><span class="card-category-list-name">TS</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/node-js/"><span class="card-category-list-name">node.js</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/"><span class="card-category-list-name">构建工具</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"><span class="card-category-list-name">计算机网络</span><span class="card-category-list-count">2</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 1.45em; color: rgb(129, 158, 60);">前端</a><a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 1.3em; color: rgb(126, 50, 60);">计算机网络</a><a href="/tags/JS/" style="font-size: 1.15em; color: rgb(126, 70, 121);">JS</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/06/">
+            <span class="card-archive-list-date">
+              六月 2025
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/05/">
+            <span class="card-archive-list-date">
+              五月 2025
+            </span>
+            <span class="card-archive-list-count">8</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">10</div></div><div class="webinfo-item"><div class="item-name">运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2025-05-18T16:00:00.000Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-06-07T04:01:37.687Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By MNCLI</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="chat-btn" type="button" title="聊天" style="display:none"><i class="fas fa-message"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'MNCLIz/MNCLIz.github.io',
+      'data-repo-id': 'R_kgDOOsGPZQ',
+      'data-category-id': 'DIC_kwDOOsGPZc4CqYL-',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="//code.tidio.co/cll1243r1sndoaffkzbditbqbruyslag.js" async></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script>(() => {
+  btf.getScript('//code.tidio.co/cll1243r1sndoaffkzbditbqbruyslag.js').then(() => {
+    const isChatBtn = true
+    const isChatHideShow = false
+
+    if (isChatBtn) {
+      let isShow = false
+      const close = () => {
+        window.tidioChatApi.hide()
+        isShow = false
+      }
+      
+      const open = () => {
+        window.tidioChatApi.open()
+        window.tidioChatApi.show()
+        isShow = true
+      }
+
+      const onTidioChatApiReady = () => {
+        window.tidioChatApi.hide()
+        window.tidioChatApi.on("close", close)
+      }
+      if (window.tidioChatApi) {
+        window.tidioChatApi.on("ready", onTidioChatApiReady)
+      } else {
+        document.addEventListener("tidioChat-ready", onTidioChatApiReady)
+      }
+
+      window.chatBtnFn = () => {
+        if (!window.tidioChatApi) return
+        isShow ? close() : open()
+      }
+
+      document.getElementById('chat-btn').style.display = 'block'
+
+    } else if (isChatHideShow) {
+      window.chatBtn = {
+        hide: () => window.tidioChatApi && window.tidioChatApi.hide(),
+        show: () => window.tidioChatApi && window.tidioChatApi.show()
+      }
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="请输入关键字" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
