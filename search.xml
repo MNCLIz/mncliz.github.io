@@ -20,6 +20,8 @@
       
         <tags>
             
+            <tag> 计算机网络 </tag>
+            
             <tag> JS </tag>
             
         </tags>
@@ -245,9 +247,9 @@
       
         <tags>
             
-            <tag> 计算机网络 </tag>
-            
             <tag> 前端 </tag>
+            
+            <tag> 计算机网络 </tag>
             
         </tags>
       
@@ -310,22 +312,22 @@
     
     
     <entry>
-      <title>列表</title>
-      <link href="/list/index.html"/>
-      <url>/list/index.html</url>
+      <title>分类</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
-        <content type="html"><![CDATA[<p>666</p>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
     
     
     <entry>
-      <title>分类</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>列表</title>
+      <link href="/list/index.html"/>
+      <url>/list/index.html</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<p>666</p>]]></content>
       
     </entry>
     
