@@ -1,0 +1,333 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>链式线性表 | MNCLI</title><meta name="author" content="MNCLI,15833035697@qq.com"><meta name="copyright" content="MNCLI"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="​	链表用一组物理位置任意的存储单元来存放线性表，链表中逻辑次序与物理次序不一定相同。 概念​	链表由若干个结点构成，每一个结点包括数据域与指针域，数据域存储数据本身，指针域存储下一个元素的地址，用来表示逻辑次序。只要记录第一个元素的指针(头指针)即可找到其他元素的存储位置  单链表：结点只有一个指针域的链表 双链表：结点有两个指针域的链表，一个存储前驱的地址，一个存储后继的地址 循环链表：首尾相">
+<meta property="og:type" content="article">
+<meta property="og:title" content="链式线性表">
+<meta property="og:url" content="https://mncliz.github.io/2025/06/17/%E9%93%BE%E5%BC%8F%E7%BA%BF%E6%80%A7%E8%A1%A8/index.html">
+<meta property="og:site_name" content="MNCLI">
+<meta property="og:description" content="​	链表用一组物理位置任意的存储单元来存放线性表，链表中逻辑次序与物理次序不一定相同。 概念​	链表由若干个结点构成，每一个结点包括数据域与指针域，数据域存储数据本身，指针域存储下一个元素的地址，用来表示逻辑次序。只要记录第一个元素的指针(头指针)即可找到其他元素的存储位置  单链表：结点只有一个指针域的链表 双链表：结点有两个指针域的链表，一个存储前驱的地址，一个存储后继的地址 循环链表：首尾相">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mncliz.github.io/img/postCover/linklist.png">
+<meta property="article:published_time" content="2025-06-17T07:33:53.000Z">
+<meta property="article:modified_time" content="2025-06-19T08:36:33.531Z">
+<meta property="article:author" content="MNCLI">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mncliz.github.io/img/postCover/linklist.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "链式线性表",
+  "url": "https://mncliz.github.io/2025/06/17/%E9%93%BE%E5%BC%8F%E7%BA%BF%E6%80%A7%E8%A1%A8/",
+  "image": "https://mncliz.github.io/img/postCover/linklist.png",
+  "datePublished": "2025-06-17T07:33:53.000Z",
+  "dateModified": "2025-06-19T08:36:33.531Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "MNCLI",
+      "url": "https://mncliz.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://mncliz.github.io/2025/06/17/%E9%93%BE%E5%BC%8F%E7%BA%BF%E6%80%A7%E8%A1%A8/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '链式线性表',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/background.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/img/postCover/linklist.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/favicon.png" alt="Logo"><span class="site-name">MNCLI</span></a><a class="nav-page-title" href="/"><span class="site-name">链式线性表</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">链式线性表</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-06-17T07:33:53.000Z" title="发表于 2025-06-17 15:33:53">2025-06-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-06-19T08:36:33.531Z" title="更新于 2025-06-19 16:36:33">2025-06-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;It has been&quot;,&quot;messageNext&quot;:&quot;days since the last update, the content of the article may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2025-06-19 16:36:33&quot;}" hidden></div><p>​	<strong>链表</strong>用一组<strong>物理位置任意</strong>的存储单元来存放线性表，链表中逻辑次序与物理次序不一定相同。</p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>​	<strong>链表</strong>由若干个<strong>结点</strong>构成，每一个结点包括<strong>数据域</strong>与<strong>指针域</strong>，数据域存储数据本身，指针域存储下一个元素的地址，用来表示逻辑次序。只要记录第一个元素的指针(<strong>头指针</strong>)即可找到其他元素的存储位置</p>
+<ul>
+<li><strong>单链表：</strong>结点只有一个指针域的链表</li>
+<li><strong>双链表：</strong>结点有两个指针域的链表，一个存储前驱的地址，一个存储后继的地址</li>
+<li><strong>循环链表：</strong>首尾相接的链表为循环链表</li>
+</ul>
+<h3 id="头结点与首元结点"><a href="#头结点与首元结点" class="headerlink" title="头结点与首元结点"></a>头结点与首元结点</h3><ul>
+<li>头结点是在链表的首元结点之前附设的一个结点</li>
+<li>首元结点为存储第一个元素的结点</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">Lnode</span> &#123;</span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    Lnode *next;</span><br><span class="line">&#125;Lnode, *LinkList;  <span class="comment">// LinkList为指针类型的结构体的别名 </span></span><br></pre></td></tr></table></figure>
+
+<p>定义链表L通常用<code>LinkList L;</code>，定义结点通常用<code>Lnode *p;</code></p>
+<h2 id="对链表的操作"><a href="#对链表的操作" class="headerlink" title="对链表的操作"></a>对链表的操作</h2><h3 id="Init"><a href="#Init" class="headerlink" title="Init"></a>Init</h3><p>链表初始化</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Init</span><span class="params">(LinkList &amp;L)</span> </span>&#123;</span><br><span class="line">    L = <span class="keyword">new</span> Lnode;  <span class="comment">// 从内存中分配一个节点空间，用头指针L指向这个节点</span></span><br><span class="line">    L-&gt;data = <span class="number">0</span>;  <span class="comment">// 头结点的data用来存放链表的长度</span></span><br><span class="line">    L-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Destory"><a href="#Destory" class="headerlink" title="Destory"></a>Destory</h3><p>销毁链表</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Destroy</span><span class="params">(LinkList &amp;L)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (L) &#123;</span><br><span class="line">        LinkList p = L;</span><br><span class="line">        L = L-&gt;next;</span><br><span class="line">        <span class="keyword">delete</span> p;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="GetData"><a href="#GetData" class="headerlink" title="GetData"></a>GetData</h3><p>获取第n位的数据</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">GetData</span><span class="params">(LinkList &amp;L, <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    Lnode *p = L;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++) &#123;</span><br><span class="line">        p = p-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> p-&gt;data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Search"><a href="#Search" class="headerlink" title="Search"></a>Search</h3><p>查找链表中数据为e的结点的位置并返回</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">Search</span><span class="params">(LinkList &amp;L, <span class="type">int</span> e)</span> </span>&#123;</span><br><span class="line">    Lnode *p = L-&gt;next;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>; i&lt;=L-&gt;data; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (p-&gt;data == e) &#123;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">        p = p-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Insert"><a href="#Insert" class="headerlink" title="Insert"></a>Insert</h3><p>在链表的第n位插入新元素e</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Insert</span><span class="params">(LinkList &amp;L, <span class="type">int</span> n, <span class="type">int</span> e)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">1</span> || n &gt; L-&gt;data + <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Lnode *p = L;  </span><br><span class="line">    Lnode *newdata = <span class="keyword">new</span> Lnode;</span><br><span class="line">    newdata-&gt;data = e;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++) &#123;</span><br><span class="line">        p = p-&gt;next;  <span class="comment">// 用p来指向第n-1位的元素</span></span><br><span class="line">    &#125;</span><br><span class="line">    Lnode *q = p-&gt;next;  <span class="comment">// 用q指向原来第n位的元素</span></span><br><span class="line">    p-&gt;next = newdata;  <span class="comment">// 使第n-1位元素的后继为newdata</span></span><br><span class="line">    newdata-&gt;next = q;  <span class="comment">// 使原来第n位元素的前驱为newdata</span></span><br><span class="line">    L-&gt;data++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Delete"><a href="#Delete" class="headerlink" title="Delete"></a>Delete</h3><p>删除链表第n位的数据</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Delete</span><span class="params">(LinkList &amp;L, <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">1</span> || n &gt; L-&gt;data) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Lnode *p = L;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++) &#123;</span><br><span class="line">        p = p-&gt;next;  <span class="comment">// 使p指向第n-1位的元素</span></span><br><span class="line">    &#125;</span><br><span class="line">    Lnode *q = p-&gt;next;  <span class="comment">// 使p指向第n位的元素</span></span><br><span class="line">    p-&gt;next = q-&gt;next;  <span class="comment">// 使原来第n+1位的元素成为第n-1位的后继</span></span><br><span class="line">    <span class="keyword">delete</span> q;  <span class="comment">// 释放内存</span></span><br><span class="line">    L-&gt;data--;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="头插法建立单链表"><a href="#头插法建立单链表" class="headerlink" title="头插法建立单链表"></a>头插法建立单链表</h3><p>将新建的结点接在头结点的后面 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Create</span><span class="params">(LinkList &amp;L, <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    L = <span class="keyword">new</span> Lnode;</span><br><span class="line">    L-&gt;data = n;</span><br><span class="line">    L-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        Lnode *p = <span class="keyword">new</span> Lnode;  <span class="comment">// 生成新节点</span></span><br><span class="line">        cin &gt;&gt; p-&gt;data;  <span class="comment">// 输入元素值,等于scanf(&quot;%d&quot;, &amp;p-&gt;data);</span></span><br><span class="line">        p-&gt;next = L-&gt;next;  <span class="comment">// 插入到表头</span></span><br><span class="line">        L-&gt;next = p;  <span class="comment">// 插入到表头</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="尾插法建立单链表"><a href="#尾插法建立单链表" class="headerlink" title="尾插法建立单链表"></a>尾插法建立单链表</h3><p>将新建的结点插在尾指针后</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Create</span><span class="params">(LinkList &amp;L, <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    L = <span class="keyword">new</span> Lnode;</span><br><span class="line">    L-&gt;data = n;</span><br><span class="line">    L-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">    Lnode *r = L;  <span class="comment">// 创建尾指针</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        Lnode *p = <span class="keyword">new</span> Lnode;  <span class="comment">// 生成新结点</span></span><br><span class="line">        cin &gt;&gt; p-&gt;data;</span><br><span class="line">        r-&gt;next = p;  <span class="comment">// 插入到尾指针后</span></span><br><span class="line">        r = p;  <span class="comment">// 更新尾指针</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h2><p>​	链表中最后一个结点的<code>next</code>指向头结点，由于表的操作通常是在首尾位置上执行，若用头指针表示单循环链表，查找最后一位元素时需要遍历整个链表，较为麻烦，但如果使用尾指针表示单循环链表，第一位元素可表示为<code>R-&gt;next-&gt;next</code>，最后一位为<code>R</code>，更为方便</p>
+<h3 id="循环链表的合并"><a href="#循环链表的合并" class="headerlink" title="循环链表的合并"></a>循环链表的合并</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">LinkList <span class="title">Hebing</span><span class="params">(LinkList &amp;R1, LinkList &amp;R2)</span> </span>&#123;</span><br><span class="line">    Lnode *L1 = R1-&gt;next;  <span class="comment">// R1的头指针</span></span><br><span class="line">    Lnode *L2 = R2-&gt;next;  <span class="comment">// R2的头指针</span></span><br><span class="line">    R1-&gt;next = L2-&gt;next;  <span class="comment">// 连接R1的尾指针与R2的首元结点</span></span><br><span class="line">    R2-&gt;next = L1;  <span class="comment">// 连接R2的尾指针与R1的头结点</span></span><br><span class="line">    <span class="keyword">delete</span> L2;  <span class="comment">// 释放R2头结点内存</span></span><br><span class="line">    <span class="keyword">return</span> R2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h2><p>双链表结点结构为</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">Lnode</span> &#123;</span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    Lnode *prior;</span><br><span class="line">    Lnode *next;</span><br><span class="line">&#125;Lnode, *LinkList;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Insert-1"><a href="#Insert-1" class="headerlink" title="Insert"></a>Insert</h3><p>双链表的插入操作，在第n位插入数据为e的结点</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Insert</span><span class="params">(LinkList &amp;L, <span class="type">int</span> n, <span class="type">int</span> e)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">1</span> || n &gt; L-&gt;data + <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Lnode *p = L;</span><br><span class="line">    Lnode *newdata = <span class="keyword">new</span> Lnode;</span><br><span class="line">    newdata-&gt;data = e;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        p = p-&gt;next;  <span class="comment">// 找到第n-1位的节点</span></span><br><span class="line">    &#125;</span><br><span class="line">    newdata-&gt;next = p-&gt;next;  <span class="comment">// 新节点的next指向原来第n位的节点</span></span><br><span class="line">    newdata-&gt;prior = p;  <span class="comment">// 新节点的prior指向第n-1位的节点</span></span><br><span class="line">    p-&gt;next = newdata;  <span class="comment">// p的next指向新节点</span></span><br><span class="line">    <span class="keyword">if</span> (newdata-&gt;next) newdata-&gt;next-&gt;prior = newdata;  <span class="comment">// 原来第n位的节点的prior指向新节点</span></span><br><span class="line">    L-&gt;data++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Delete-1"><a href="#Delete-1" class="headerlink" title="Delete"></a>Delete</h3><p>双链表的删除操作，删除第n位的结点</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Delete</span><span class="params">(LinkList &amp;L, <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">1</span> || n &gt; L-&gt;data) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Lnode *p = L;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++) &#123;</span><br><span class="line">        p = p-&gt;next;  <span class="comment">// 找到第n位的节点</span></span><br><span class="line">    &#125;</span><br><span class="line">    p-&gt;prior-&gt;next = p-&gt;next;  <span class="comment">// 第n-1位的节点的next指向第n+1位的节点</span></span><br><span class="line">    <span class="keyword">if</span> (p-&gt;next) p-&gt;next-&gt;prior = p-&gt;prior;  <span class="comment">// 第n+1位的节点的prior指向第n-1位的节点</span></span><br><span class="line">    <span class="keyword">delete</span> p;</span><br><span class="line">    L-&gt;data--;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://mncliz.github.io">MNCLI</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://mncliz.github.io/2025/06/17/%E9%93%BE%E5%BC%8F%E7%BA%BF%E6%80%A7%E8%A1%A8/">https://mncliz.github.io/2025/06/17/%E9%93%BE%E5%BC%8F%E7%BA%BF%E6%80%A7%E8%A1%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://mncliz.github.io" target="_blank">MNCLI</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></div><div class="post-share"><div class="social-share" data-image="/img/postCover/linklist.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/06/16/%E9%A1%BA%E5%BA%8F%E7%BA%BF%E6%80%A7%E8%A1%A8/" title="顺序线性表"><img class="cover" src="/img/cover0.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">顺序线性表</div></div><div class="info-2"><div class="info-item-1">​	顺序线性表是指用一组地址连续的存储单元一次存储数据元素的线性结构。 12345#define MAX_SIZE 1000typedef struct &#123;    int data[MAX_SIZE];  // 存储元素的数组    int length;  // 长度&#125;SqList;  引用类型做参数传地址123456void main()&#123;    int i = 1;    int &amp;j = i;    i = 2;    cont&lt;&lt;&quot;i=&quot;&lt;&lt;i&lt;&lt;&quot;j=&quot;&lt;&lt;j;  // i=2 j=2&#125;  事例中j是i的引用，代表i的一个替代名，i值改变时j也跟着改变 123456789101112#include &lt;iostream&gt;using namespace std;void swap(int &amp;m, int &amp;n)&#123;    int temp = m;    m = n;    n =...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/06/16/%E9%A1%BA%E5%BA%8F%E7%BA%BF%E6%80%A7%E8%A1%A8/" title="顺序线性表"><img class="cover" src="/img/cover0.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-16</div><div class="info-item-2">顺序线性表</div></div><div class="info-2"><div class="info-item-1">​	顺序线性表是指用一组地址连续的存储单元一次存储数据元素的线性结构。 12345#define MAX_SIZE 1000typedef struct &#123;    int data[MAX_SIZE];  // 存储元素的数组    int length;  // 长度&#125;SqList;  引用类型做参数传地址123456void main()&#123;    int i = 1;    int &amp;j = i;    i = 2;    cont&lt;&lt;&quot;i=&quot;&lt;&lt;i&lt;&lt;&quot;j=&quot;&lt;&lt;j;  // i=2 j=2&#125;  事例中j是i的引用，代表i的一个替代名，i值改变时j也跟着改变 123456789101112#include &lt;iostream&gt;using namespace std;void swap(int &amp;m, int &amp;n)&#123;    int temp = m;    m = n;    n =...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">MNCLI</div><div class="author-info-description">啥也不会</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/MNCLIz"><i class="fab fa-github"></i><span>follow me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><div>Welcome to my Blog!</div> <img src="/img/jiahaoyou.jpg" height=230px></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%B4%E7%BB%93%E7%82%B9%E4%B8%8E%E9%A6%96%E5%85%83%E7%BB%93%E7%82%B9"><span class="toc-number">1.1.</span> <span class="toc-text">头结点与首元结点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E9%93%BE%E8%A1%A8%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">对链表的操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Init"><span class="toc-number">2.1.</span> <span class="toc-text">Init</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Destory"><span class="toc-number">2.2.</span> <span class="toc-text">Destory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GetData"><span class="toc-number">2.3.</span> <span class="toc-text">GetData</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Search"><span class="toc-number">2.4.</span> <span class="toc-text">Search</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Insert"><span class="toc-number">2.5.</span> <span class="toc-text">Insert</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Delete"><span class="toc-number">2.6.</span> <span class="toc-text">Delete</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%B4%E6%8F%92%E6%B3%95%E5%BB%BA%E7%AB%8B%E5%8D%95%E9%93%BE%E8%A1%A8"><span class="toc-number">2.7.</span> <span class="toc-text">头插法建立单链表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%BE%E6%8F%92%E6%B3%95%E5%BB%BA%E7%AB%8B%E5%8D%95%E9%93%BE%E8%A1%A8"><span class="toc-number">2.8.</span> <span class="toc-text">尾插法建立单链表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8"><span class="toc-number">3.</span> <span class="toc-text">循环链表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8%E7%9A%84%E5%90%88%E5%B9%B6"><span class="toc-number">3.1.</span> <span class="toc-text">循环链表的合并</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8"><span class="toc-number">4.</span> <span class="toc-text">双向链表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Insert-1"><span class="toc-number">4.1.</span> <span class="toc-text">Insert</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Delete-1"><span class="toc-number">4.2.</span> <span class="toc-text">Delete</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/06/17/%E9%93%BE%E5%BC%8F%E7%BA%BF%E6%80%A7%E8%A1%A8/" title="链式线性表"><img src="/img/postCover/linklist.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="链式线性表"/></a><div class="content"><a class="title" href="/2025/06/17/%E9%93%BE%E5%BC%8F%E7%BA%BF%E6%80%A7%E8%A1%A8/" title="链式线性表">链式线性表</a><time datetime="2025-06-17T07:33:53.000Z" title="发表于 2025-06-17 15:33:53">2025-06-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/06/16/%E9%A1%BA%E5%BA%8F%E7%BA%BF%E6%80%A7%E8%A1%A8/" title="顺序线性表"><img src="/img/cover0.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="顺序线性表"/></a><div class="content"><a class="title" href="/2025/06/16/%E9%A1%BA%E5%BA%8F%E7%BA%BF%E6%80%A7%E8%A1%A8/" title="顺序线性表">顺序线性表</a><time datetime="2025-06-16T09:07:49.000Z" title="发表于 2025-06-16 17:07:49">2025-06-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/06/12/CSS%E5%8A%A0%E8%BD%BD%E5%8A%A8%E7%94%BB/" title="CSS加载动画"><img src="/img/postCover/loadingcover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CSS加载动画"/></a><div class="content"><a class="title" href="/2025/06/12/CSS%E5%8A%A0%E8%BD%BD%E5%8A%A8%E7%94%BB/" title="CSS加载动画">CSS加载动画</a><time datetime="2025-06-12T02:43:07.000Z" title="发表于 2025-06-12 10:43:07">2025-06-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/06/10/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%8E%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/" title="文件上传与相关操作"><img src="/img/postCover/filecover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="文件上传与相关操作"/></a><div class="content"><a class="title" href="/2025/06/10/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%8E%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/" title="文件上传与相关操作">文件上传与相关操作</a><time datetime="2025-06-10T08:02:54.000Z" title="发表于 2025-06-10 16:02:54">2025-06-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/06/08/%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%E4%B8%8EFlex-Grid%E5%B8%83%E5%B1%80/" title="盒子模型与Flex/Grid布局"><img src="/img/postCover/boxcover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="盒子模型与Flex/Grid布局"/></a><div class="content"><a class="title" href="/2025/06/08/%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%E4%B8%8EFlex-Grid%E5%B8%83%E5%B1%80/" title="盒子模型与Flex/Grid布局">盒子模型与Flex/Grid布局</a><time datetime="2025-06-08T03:49:40.000Z" title="发表于 2025-06-08 11:49:40">2025-06-08</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By MNCLI</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat-btn" type="button" title="聊天" style="display:none"><i class="fas fa-message"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'MNCLIz/MNCLIz.github.io',
+      'data-repo-id': 'R_kgDOOsGPZQ',
+      'data-category-id': 'DIC_kwDOOsGPZc4CqYL-',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="//code.tidio.co/cll1243r1sndoaffkzbditbqbruyslag.js" async></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script>(() => {
+  btf.getScript('//code.tidio.co/cll1243r1sndoaffkzbditbqbruyslag.js').then(() => {
+    const isChatBtn = true
+    const isChatHideShow = false
+
+    if (isChatBtn) {
+      let isShow = false
+      const close = () => {
+        window.tidioChatApi.hide()
+        isShow = false
+      }
+      
+      const open = () => {
+        window.tidioChatApi.open()
+        window.tidioChatApi.show()
+        isShow = true
+      }
+
+      const onTidioChatApiReady = () => {
+        window.tidioChatApi.hide()
+        window.tidioChatApi.on("close", close)
+      }
+      if (window.tidioChatApi) {
+        window.tidioChatApi.on("ready", onTidioChatApiReady)
+      } else {
+        document.addEventListener("tidioChat-ready", onTidioChatApiReady)
+      }
+
+      window.chatBtnFn = () => {
+        if (!window.tidioChatApi) return
+        isShow ? close() : open()
+      }
+
+      document.getElementById('chat-btn').style.display = 'block'
+
+    } else if (isChatHideShow) {
+      window.chatBtn = {
+        hide: () => window.tidioChatApi && window.tidioChatApi.hide(),
+        show: () => window.tidioChatApi && window.tidioChatApi.show()
+      }
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="请输入关键字" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
